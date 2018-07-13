@@ -1,0 +1,10 @@
+﻿<div class="modal-content">
+    <div class="modal-body">
+        <textarea rows="15" style="width: 100%;" ng-disabled="disabled" ng-model="comments" max-chars="limit" ng-focus="inputfocus" ng-change="comments=comments.substring(0,limit)" required></textarea>
+        <div class="text-danger" ng-show="limit">{{limit - comments.length}} characters remaining</div>
+    </div>
+    <div class="modal-footer" style="text-align: center;">
+        <button ng-click="close()" type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+        <button ng-click="update(comments)" ng-disabled="disabled" type="button" class="btn btn-sm btn-primary">Update</button>
+    </div>
+</div>

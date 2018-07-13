@@ -1,0 +1,154 @@
+﻿
+<div class="row" ng-controller="searchCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <b>Search</b>
+                    <div ng-hide="true" class="pull-right">
+                        <div class="btn-group">
+                            <i class="glyphicon glyphicon-list pointer" data-toggle="dropdown"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+
+
+                        <div class="row">
+                            <form role="form">
+                                <div class="form-group">
+                                    <div class="input-group col-md-4 space-bottom nopad">
+                                        <input type="text" class="form-control input-sm" ng-model="dto.SearchOptions.FreeText" ui-keypress="{enter : 'textSearch($event)'}" placeholder="Type your search here">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary btn-sm" type="submit" ng-click="generateSelectedReports()" title="Perform the search using the selected options"><span class="glyphicon glyphicon-search"></span> Search</button>
+                                        </span>
+                                    </div>
+                                    <div class="help-block pull-left col-md-12 nopad">
+                                        Search with Surname, Forename, SAP Personnel No.,User ID, Local Position Code, Organization, Hiring Company.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="radio" id="quickSearch" name="inlineRadioOptions" value="standard" ng-model="dto.searchType"><label for="quickSearch">Quick Search</label>
+                                    <input type="radio" id="advancedSearch" name="inlineRadioOptions" value="advanced" ng-model="dto.searchType"><label for="advancedSearch">Advanced Search</label>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div ng-show="dto.SearchOptions.ShowAdvanced==true" class="row space-bottom">
+                            <form name="MyForm" class="form-inline">
+                                <div class="control-group">
+
+                                    <div class="controls">
+                                        <div class="col-sm-12 nopad">
+
+                                            <input type="text" class="form-control input-sm" placeholder="Surname" style="width:125px" ng-model="dto.SearchOptions.Surname">
+
+                                            <input type="text" class="form-control input-sm" placeholder="Forename" style="width:125px" ng-model="dto.SearchOptions.Forename">
+                                            <input type="text" class="form-control input-sm" placeholder="SAP Personnel No." style="width:125px" ng-model="dto.SearchOptions.Personnel_NO">
+                                            <input type="text" class="form-control input-sm" placeholder="SAP Position ID" style="width:110px" ng-model="dto.SearchOptions.SAP_PositionID">
+                                            <input type="text" class="form-control input-sm" placeholder="Local Position Code" style="width:135px" ng-model="dto.SearchOptions.LocalPositionCode">
+
+
+
+                                            <select ui-select2 ng-model="dto.SearchOptions.OrganizationID" style="width:120px"
+                                                    data-placeholder="Organization">
+                                                <option ng-repeat="option in dto.ddl.Organization"
+                                                        value="{{option.ID}}">
+                                                    {{option.DisplayName}}
+                                                </option>
+                                            </select>
+
+                                            <select ui-select2 ng-model="dto.SearchOptions.HiringCompanyID" style="width:125px"
+                                                    data-placeholder="Hiring Company">
+                                                <option ng-repeat="option in dto.ddl.HiringCompany"
+                                                        value="{{option.ID}}">
+                                                    {{option.DisplayName}}
+                                                </option>
+                                            </select>
+
+                                            <select ui-select2 ng-model="dto.SearchOptions.LineManagerID" style="width:125px"
+                                                    data-placeholder="Line Manager">
+                                                <option ng-repeat="option in dto.ddl.LineManager"
+                                                        value="{{option.ID}}">
+                                                    {{option.DisplayName}}
+                                                </option>
+                                            </select>
+                                            <button class="btn btn-primary btn-sm " type="button" ng-click="generateSelectedReports()" title="Perform the search using the selected options"><span class="glyphicon glyphicon-search"></span>Search</button>
+                                            <button class="btn btn-default btn-sm " type="button" ng-click="clearSearchOptions()">Reset Search</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-12 space-bottom">
+                                <br />
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="false">
+                            <div class="col-lg-12 space-bottom">
+                                No search results.
+                            </div>
+                        </div>
+                        <div class="row" ng-show="false">
+                            <div class="col-lg-12 space-bottom">
+                                No search results.
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-12 nopad">
+
+
+                                <div class="table-responsive">
+                                    <table tr-ng-grid=""
+                                           items="dto.results"
+                                           class="table-condensed-more table-bordered table-striped well"
+                                           page-items="dto.PagingData.pageSize"
+                                           total-items="dto.PagingData.gridTotalCount"
+                                           enable-filtering="dto.PagingData.coloumnSearch"
+                                           current-page="dto.PagingData.currentPage"
+                                           on-data-required="dto.generateReports(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)">
+
+
+                                        <thead>
+                                            <tr>
+                                                <th field-name="LocalPositionCode" display-align="center" display-name="Local Position Code"></th>
+                                                <th cell-height="1em" display-align="left" display-name="Name" field-name="FullName"></th>
+                                                <th field-name="Personnel_NO" display-name="SAP Personnel No." display-align="center"></th>
+                                                <th field-name="UserID" display-align="center" display-name="User ID"></th>
+                                                <th field-name="SAP_PositionID" display-align="center" display-name="SAP Position ID"></th>
+                                                <th field-name="PositionName" display-align="center" display-name="Position Name"></th>
+                                                <th field-name="LineManagerName" display-align="left" display-name="Line Manager"></th>
+                                                <th field-name="OrganizationName" display-align="left" display-name="Organization"></th>
+                                                <th field-name="HiringCompanyName" display-align="left" display-name="Hiring Company"></th>
+
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td field-name="LocalPositionCode">
+                                                    <button type="button" ng-click="ShowHeadcountForm(gridItem.HeadCountID)" class="btn btn-xs btn-link"> {{gridItem.LocalPositionCode}}</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <h4>{{title}}</h4>
+    </div>
+    <form name="modalForm" ng-submit="submitForm(modalForm.$valid)" class="modal-body" ng-transclude novalidate></form>
+    <div class="modal-footer">
+        <button ng-disabled="modalForm.$invalid" ng-click="close(model)" type="button" class="btn btn-sm btn-primary">{{submitButtonText}}</button>
+        <button ng-show="showCancelButton" ng-click="close()" type="button" class="btn btn-sm btn-default">Cancel</button>
+    </div>
+</div>

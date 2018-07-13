@@ -1,0 +1,38 @@
+﻿<div class="space-bottom">
+    <style>
+        .adPickerCallback {
+            width: calc(100% - 84px);
+        }
+
+        .adPickerCallbackNone {
+            width: calc(100% - 40px);
+        }
+    </style>
+    <form name="form" role="form" novalidate>
+        <div style="float: left; padding-bottom: 5px;" ng-class="{true:'adPickerCallback',false:'adPickerCallbackNone'}[callbackExists()]">
+            <div ng-show="mode=='Search'">
+                <input type="text" class="form-control input-sm" ui-keypress="{enter : 'entSearch($event)'}" ng-model="searchTerm" title="Enter the search string here, minimum 2 characters." ng-required="false" />
+                <div ng-show="noMatches" style="color: red;">No matches found, please search again.</div>
+            </div>
+            <div ng-show="mode=='Searching'">
+                <input type="text" class="form-control input-sm" value="Searching..." readonly="true" ng-required="false">
+            </div>
+            <div ng-show="mode=='SingleResult'">
+                <input type="text" class="form-control input-sm" ng-model="selectedUser" readonly="true" ng-required="checkRequired('SingleResult')">
+            </div>
+            <div ng-show="mode=='MultiResult'">
+                <select ui-select2="{allowClear:false}" style="padding-left: 0px; padding-bottom: 0px; width: 100%;" ng-model="selectedIndex" ng-change="selectDropDownOption()" data-placeholder="Select user" ng-required="checkRequired('MultiResult')">
+                    <option value=""></option>
+                    <optgroup label="Results ({{results.length}})">
+                        <option ng-repeat="u in results" value="{{$index}}">{{u.DisplayName}} ({{u.SamaccountName}})</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <div style="float: left;">
+            <button ng-show="mode=='Search' || mode=='Searching'" style="width: 35px; margin-left: 5px; padding-left: -15px;" type="button" class="btn btn-primary btn-sm input-sm" ng-disabled="mode=='Searching' || searchTerm.length==0 || searchTerm.length<2" ng-click="searchAD(searchTerm)" title="Click to search using the search string"><span class="glyphicon glyphicon-search"></span></button>
+            <button ng-show="mode=='MultiResult' || mode=='SingleResult'" style="width: 35px; margin-left: 5px;" type="button" class="btn btn-warning btn-sm input-sm" ng-disabled="false" ng-click="resetAll(true)" title="Clear the search results"><span class="glyphicon glyphicon-remove"></span></button>
+            <button ng-show="callbackExists()" style="width: 35px; margin-left: 5px;" type="button" class="btn btn-success btn-sm input-sm" ng-disabled="mode!='MultiResult' && mode!='SingleResult'" ng-click="runCallBack()" title="Add User?"><span class="glyphicon glyphicon-plus"></span></button>
+        </div>
+    </form>
+</div>

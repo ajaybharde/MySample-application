@@ -1,0 +1,74 @@
+﻿<div class="row" ng-controller="UserAdminCtrl">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="panel-group panel panel-primary">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-user space-right"></span>Manage Users and Roles
+            </div>
+            <div class="panel-body">
+                <div class="row space-bottom nopad">
+                    <div class="col-sm-4 nopad">
+                        <label>Add New User:</label>
+                        <span ad-picker="{'showAddButton': 'true'}" on-user-select="addUser('add',user)" style="width: 100%;"></span>
+                    </div>
+                </div>
+                <div >
+                    <div class="row space-bottom">
+                        <div class="col-sm-4 nopad">
+                            <label>Filter by role:</label><br />
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-primary btn-sm active" ng-click="getAuthUsersByRole()">
+                                    <input type="radio" name="options">
+                                    All
+                                </label>
+                                <!--<label class="btn btn-primary btn-sm" ng-click="getAuthUsersByRole('Guest')">
+                                    <input type="radio" name="options">
+                                    Guest
+                                </label>-->
+                                <label class="btn btn-primary btn-sm" ng-click="getAuthUsersByRole('SystemAdmin')">
+                                    <input type="radio" name="options">
+                                    System Admin
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row space-bottom">
+                        <div class="col-sm-12 col-md-12 nopad">
+                            <label>Application Users:</label>
+                            <div class="table-responsive">
+                                <div kendo-grid ng-show="!showChart"
+                                     k-data-source="dto.AuthUsers"
+                                     k-groupable="false"
+                                     k-filterable="true"
+                                     k-options="{ sortable: true, resizable: true }"
+                                     k-columns="constants.userAdminColDef"
+                                     k-scrollable="true"
+                                     k-on-data-bound='onDataBound(kendoEvent)' >
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--<div class="col-sm-12 col-md-6">
+                            <label>User Access Log:</label>
+                            <div kendo-grid ng-show="!showChart"
+                                 k-data-source="dto.UserAccessLog"
+                                 k-groupable="true"
+                                 k-options="{ sortable: true, resizable: true }"
+                                 k-height="450"
+                                 k-columns="constants.userAccessLogColDef"
+                                 k-scrollable="true"
+                                 k-pageable="{ 'refresh': true, 'pageSizes': true, buttonCount: 3 }"
+                                 k-on-data-bound='onDataBound(kendoEvent)'>
+                            </div>
+                            <div ng-show="showChart" style="height: 450px; border: 1px solid LightGrey;">
+                                <select ui-select2="{ minimumResultsForSearch: -1 }" ng-model="dto.selectedUser" style="width: 240px; margin: 8px;" ng-change="getStats(dto.selectedUser)">
+                                    <option value="">All</option>
+                                    <option ng-repeat="userAuth in dto.Users" value="{{userAuth.UserName}}">{{userAuth.DisplayName}}</option>
+                                </select>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

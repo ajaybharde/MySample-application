@@ -1,0 +1,19 @@
+﻿<div class="row" ng-controller="trGridCtrl">
+    <div class="col-sm-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="glyphicon glyphicon-search space-right"></i>
+                Full Dashboard Grid
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table tr-ng-grid=""
+                           items="dto.gridData"
+                           page-items="dto.pageSize"
+                           total-items="gridTotalCount"
+                           on-data-required="getPagedGridData(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+﻿<div class="row" ng-controller="AboutCtrl">
+    <div class="col-sm-4">
+        <div class="list-group">
+            <a class="list-group-item active">
+                <span class="glyphicon glyphicon-user space-right"></span>User
+            </a>
+            <a class="list-group-item">User Name: {{dto.UserDetails.AppUser.UserName}}</a>
+            <a class="list-group-item">Display Name: {{dto.UserDetails.AppUser.DisplayName}}</a>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="list-group">
+            <a class="list-group-item active">
+                <span class="glyphicon glyphicon-globe space-right"></span>Environment
+            </a>
+            <a class="list-group-item">COPApplEnv: {{dto.AppSettings.COPApplEnv}}</a>
+            <a class="list-group-item">COPApplZone: {{dto.AppSettings.COPApplZone}}</a>
+            <a class="list-group-item">DotNetVersion: {{dto.AppSettings.DotNetVersion}}</a>
+            <a class="list-group-item">ServerName: {{dto.AppSettings.ServerName}}</a>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="list-group">
+            <a class="list-group-item active">
+                <span class="glyphicon glyphicon-picture space-right"></span>About
+            </a>
+            <a class="list-group-item">App Name: {{dto.AppSettings.COPApplName}}</a>
+            <a class="list-group-item">App Version: {{dto.AppSettings.COPApplVersion}}</a>
+        </div>
+    </div>
+</div>

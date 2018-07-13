@@ -1,0 +1,160 @@
+
+<div class="row" ng-controller="reportCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <b>Report</b>
+                    <button style="margin-top: -3px;" title="Export To Excel" class="btn btn-xs btn-primary pull-right"
+                            ng-click="ExportToExcel()">
+                        <i class="glyphicon glyphicon-export space-right"></i>
+                    </button>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+
+                        <form name="MyForm" class="form-inline">
+                            <div class="control-group">
+
+                                <div class="controls">
+                                    <div class="col-sm-12 nopad">
+
+                                        <select ui-select2 ng-model="dto.SearchOptions.SAP_Org_Chart" style="width:125px"
+                                                data-placeholder="SAP Org Chart">
+                                            <option ng-repeat="option in dto.ddl.SAP_Org_Chart"
+                                                    value="{{option.ID}}">
+                                                {{option.DisplayName}}
+                                            </option>
+                                        </select>
+
+                                        <select ui-select2 ng-model="dto.SearchOptions.C_BAY" style="width:135px"
+                                                data-placeholder="Eligible for C-Bay">
+                                            <option ng-repeat="option in dto.ddl.C_BAY"
+                                                    value="{{option.ID}}">
+                                                {{option.DisplayName}}
+                                            </option>
+                                        </select>
+                                        <select ui-select2 ng-model="dto.SearchOptions.Active" style="width:100px"
+                                                data-placeholder="Active">
+                                            <option ng-repeat="option in dto.ddl.Active"
+                                                    value="{{option.ID}}">
+                                                {{option.DisplayName}}
+                                            </option>
+                                        </select>
+                                        <select ui-select2 ng-model="dto.SearchOptions.SecurityPassID" style="width:125px"
+                                                data-placeholder="Security Pass">
+
+                                            <option ng-repeat="option in dto.ddl.SecurityPass"
+                                                    value="{{option.ID}}">
+                                                {{option.DisplayName}}
+                                            </option>
+                                        </select>
+
+
+                                        <select ui-select2 ng-model="dto.SearchOptions.OrganizationID" style="width:125px"
+                                                data-placeholder="Organization">
+                                            <option ng-repeat="option in dto.ddl.Organization"
+                                                    value="{{option.ID}}">
+                                                {{option.DisplayName}}
+                                            </option>
+                                        </select>
+
+                                        <select ui-select2 ng-model="dto.SearchOptions.HiringCompanyID" style="width:125px"
+                                                data-placeholder="Hiring Company">
+                                            <option ng-repeat="option in dto.ddl.HiringCompany"
+                                                    value="{{option.ID}}">
+                                                {{option.DisplayName}}
+                                            </option>
+                                        </select>
+
+                                        <select ui-select2 ng-model="dto.SearchOptions.LineManagerID" style="width:125px"
+                                                data-placeholder="Line Manager">
+                                            <option ng-repeat="option in dto.ddl.LineManager"
+                                                    value="{{option.ID}}">
+                                                {{option.DisplayName}}
+                                            </option>
+                                        </select>
+
+                                        <button class="btn btn-primary btn-sm " type="button" ng-click="generateSelectedReports()" title="Generate the report using the selected options"><span class="glyphicon glyphicon-search"></span>Filter Report</button>
+                                        <button class="btn btn-default btn-sm " type="button" ng-click="clearSearchOptions()">Reset Filter</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+
+
+                        <div class="row">
+                            <div class="col-lg-12 space-bottom">
+                                <br />
+                            </div>
+                        </div>
+
+
+                        <div class="row" ng-show="false">
+                            <div class="col-lg-12 space-bottom">
+                                No search results.
+                            </div>
+                        </div>
+                        <div class="row" ng-show="false">
+                            <div class="col-lg-12 space-bottom">
+                                No search results.
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-12 nopad">
+
+
+                                <div class="table-responsive">
+
+
+                                    <table tr-ng-grid=""
+                                           items="dto.results"
+                                           class="table-condensed-more table-bordered table-striped well"
+                                           page-items="dto.PagingData.pageSize"
+                                           total-items="dto.PagingData.gridTotalCount"
+                                           enable-filtering="dto.PagingData.coloumnSearch"
+                                           current-page="dto.PagingData.currentPage"
+                                           on-data-required="dto.generateReports(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)">
+
+                                        <thead>
+                                            <tr>
+                                                <th field-name="LocalPositionCode" display-align="center" display-name="Local Position Code"></th>
+                                                <th cell-height="1em" display-align="left" display-name="Name" field-name="FullName"></th>
+                                                <th field-name="Personnel_NO" display-name="SAP Personnel No." display-align="center"></th>
+                                                <th field-name="UserID" display-align="center" display-name="User ID"></th>
+                                                <th field-name="SAP_PositionID" display-align="center" display-name="SAP Position ID"></th>
+                                                <th field-name="PositionName" display-align="center" display-name="Position Name"></th>
+                                                
+                                                <th field-name="LineManagerName" display-align="left" display-name="Line Manager"></th>
+                                                <th field-name="OrganizationName" display-align="left" display-name="Organization"></th>
+                                                <th field-name="HiringCompanyName" display-align="left" display-name="Hiring Company"></th>
+                                                <th field-name="Active" display-align="center" display-name="Active"></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td field-name="FullName">
+
+                                                    {{gridItem.FullName}}
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

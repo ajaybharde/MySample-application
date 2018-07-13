@@ -1,0 +1,47 @@
+﻿<table class="table table-condensed table-striped">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Link</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="attachment in attachments">
+            <td>{{attachment.Description}}</td>
+            <td>
+                {{attachment.Type == 0 ? "Link" : "Uploaded"}}
+            </td>
+            <td ng-show="attachment.Type==0"><a href="attachment.Link" target="_blank">{{attachment.Link}}</a></td>
+            <td ng-show="attachment.Type==1"><a href="" ng-click="downloadFile(attachment.FileID)">{{attachment.FileName}}</a></td>
+            <td>
+                <button ng-show="dto.mode!='read'" type="button" ng-click="deleteAttachment(attachment)" class="close" aria-hidden="true">&times;</button>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot ng-show="dto.mode!='read'">
+        <tr>
+            <td>
+                <input type="text" class="form-control input-sm" ng-model="newAttachment.Description" />
+            </td>
+            <td>
+                <select ui-select2 ng-model="newAttachment.Type" style="width: 100%;">
+                    <option value="0">Link</option>
+                    <option value="1">Upload</option>
+                </select>
+            </td>
+            <td>
+                <input ng-show="newAttachment.Type==0" type="text" class="form-control input-sm" ng-model="newAttachment.Link" />
+                <div ng-show="newAttachment.Type==1" file-upload action='api/scera/fileupload' object-id='{{dto.sceraDto.Scera.Id}}' extensions="*" on-upload="refreshFiles()" result="result"></div>
+            </td>
+            <td style="border-top: none;">
+                <button ng-show="newAttachment.Type==0" type="button" class="btn btn-primary btn-sm" ng-click="addAttachment()"><i class="glyphicon glyphicon-plus"></i></button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <div ng-show="statusString" class="alert" ng-class="{true: 'alert-danger', false: 'alert-success'}[invalid]">{{statusString}}</div>
+            </td>
+        </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,259 @@
+﻿<div class="row" ng-controller="HomeCtrl">
+    <div class="col-md-12 ">
+        <div class="panel panel-primary  panel-height home-panel">
+            <div class="panel-heading">
+                <span>Processing of Monthly Headcount</span>
+            </div>
+            <div class="panel-body ">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 nopad-left nopad-right">
+                        <ul class="nav nav-tabs">
+                            <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.selected)}" ng-click="onClickTab(tab)">
+                                <a data-toggle="tab">
+                                    {{tab.title}}
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+
+                            <div style="margin-top:11px" ng-show="isActiveTab(1)">
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label">Reset Table for SKP Import</label>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <button type="submit" class="btn btn-danger btn-sm" ng-click="EmptySKPBox()" style="width: 175px">Empty SKP Box Table</button>
+
+                                    </div>
+                                </div>
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label">Import SKP  Files for Boxes</label>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="col-sm-4 col-md-3 nopad">
+                                                    <select ui-select2
+                                                            style="width:200px"
+                                                            ng-model="selectedBox"
+                                                            data-placeholder="Select Client">
+                                                        <option value=""></option>
+                                                        <option ng-repeat="option in dto.BoxNames"
+                                                                value="{{option}}">
+                                                            {{option.BoxName}}
+                                                        </option>
+                                                    </select>
+
+
+
+                                                </div>
+
+                                                <button type="submit" class="btn btn-sm btn-primary pull-right" ng-click="ImportBox()">Import File</button>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row space-bottom">
+                                    <div class="col-sm-2 col-md-2 ">
+                                        <label class="control-label ">Check Imported Data</label>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2 ">
+                                        <button type="submit" class="btn btn-sm btn-primary" style="width: 175px" ng-click="showCountSKP()">Count of Rows</button>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2 nopad">
+                                        <button type="submit" class="btn btn-sm btn-primary" style="width: 175px" ng-click="showCheckBoxLocation()">Box Locations</button>
+                                    </div>
+                                </div>
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label">Process Imported Data</label>
+                                    </div>
+                                    <div class="col-sm-5 col-md-4">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-md-3 nopad">
+                                                        <div class="input-group input-group-sm" style="width: 210px;">
+                                                            <span class="input-group-addon">Select Date:</span>
+                                                            <input type="text" datepicker-popup="dd MMM yyyy" datepicker-append-to-body="true" class="form-control input-sm " ng-model="selectedBoxDate" min="minDate">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <!--<div class="col-lg-5 col-md-5">
+                                                        <input type="text" datepicker-popup="dd MMM yyyy" datepicker-append-to-body="true" class="form-control input-sm" min="minDate" ng-model="selectedBoxDate" />
+                                                    </div>-->
+
+                                                    <button type="submit" class="btn btn-sm btn-success pull-right" ng-click="BoxUpdateSnapshot()">Update Snapshot</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-2 col-md-2">
+                                        <button type="submit" class="btn btn-sm btn-primary" style="width: 175px" ng-click="MatchBoxestoESearch()">Match Boxes to eSearch</button>
+                                    </div>
+                                </div>
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label">Check Exceptions</label>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <button type="submit" class="btn btn-sm btn-primary" style="width: 175px" ng-click="showSKPNotESearch()">SKP Box Not In eSearch</button>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 nopad">
+                                        <button type="submit" class="btn btn-sm btn-primary" style="width: 175px" ng-click="showESearchNotSKP()">eSearch Box Not In SKP</button>
+                                    </div>
+                                </div>
+
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label">Create file for upload to eSearch</label>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <button type="submit" class="btn btn-sm btn-success" ng-click="ExportBoxLoadFile()" style="width: 175px">Export Box Load File</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div style="margin-top:11px" ng-show="isActiveTab(2)">
+
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label">Process Imported Data</label>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <button type="submit" class="btn btn-sm btn-primary" style="width: 175px" ng-click="MatchCoreBoxestoESearch()">Match Core Boxes</button>
+                                    </div>
+                                </div>
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label">Check Imported Data</label>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <button type="submit" class="btn btn-sm btn-primary" style="width: 175px" ng-click="showCoreBoxLocation()">Core Box by Location</button>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 nopad">
+                                        <button type="submit" class="btn btn-sm btn-primary" style="width: 175px" ng-click="showCoreBoxMatchSummary()">Core Box Match Summary</button>
+                                    </div>
+                                </div>
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label">Check Exceptions</label>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <button type="submit" class="btn btn-primary btn-sm" style="width: 175px" ng-click="showCoreSKPNotESearch()">SKP Core Box not in eSearch</button>
+
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 nopad">
+                                        <button type="submit" class="btn btn-primary btn-sm" style="width: 175px" ng-click="showCoreESearchNotSKP()">eSearch Core Box not in SKP</button>
+                                    </div>
+                                </div>
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label">Create file for Upload to eSearch</label>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <button type="submit" class="btn btn-sm btn-success" ng-click="CoreExportBoxLoadFile()" style="width:175px">Export Core Load File</button>
+                                    </div>
+                                </div>
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label">View Core Items</label>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <button type="submit" class="btn btn-sm btn-primary" style="width: 175px" ng-click="showViewCoreItem()">View Core Item</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                            <div style="margin-top:11px" ng-show="isActiveTab(3)">
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label">Reset Table for SKP Import</label>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <button type="submit" class="btn btn-sm btn-danger" style="width: 175px" ng-click="EmptyItemBox()">Empty SKP Item Table</button>
+                                    </div>
+                                </div>
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label">Import SKP files for Items</label>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="col-sm-4 col-md-3 nopad">
+                                                    <select ui-select2
+                                                            style="width:200px"
+                                                            ng-model="selectedItem"
+                                                            data-placeholder="Select Client">
+                                                        <option value=""></option>
+                                                        <option ng-repeat="option in dto.ItemNames"
+                                                                value="{{option}}">
+                                                            {{option.ItemName}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-sm btn-primary pull-right" ng-click="ImportItem()">Import File</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label ">Process Imported data</label>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-md-3 nopad">
+                                                        <div class="input-group input-group-sm" style="width: 210px;">
+                                                            <span class="input-group-addon">Select Date:</span>
+                                                            <input type="text" datepicker-popup="dd MMM yyyy" datepicker-append-to-body="true" class="form-control input-sm " ng-model="selectedItemDate" min="minDate">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-sm btn-success pull-right" ng-click="ItemUpdateSnapshot()">Update Snapshot</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row space-bottom">
+                                    <div class="col-lg-2 col-md-2">
+                                        <label class="control-label">View Item Summary</label>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <button type="submit" class="btn btn-sm btn-primary" style="width: 175px" ng-click="showItemClientCount()">View Item Client Count</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

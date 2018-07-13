@@ -1,0 +1,11 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+      <div class="panel-title">
+          {{heading}}
+          <a href="" class="accordion-toggle" ng-click="isOpen = !isOpen" accordion-transclude="heading"></a>
+      </div>
+  </div>
+  <div class="panel-collapse" collapse="!isOpen">
+	  <div class="panel-body" ng-transclude></div>
+  </div>
+</div>

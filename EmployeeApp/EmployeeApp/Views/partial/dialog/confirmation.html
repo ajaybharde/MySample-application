@@ -1,0 +1,14 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <span class="glyphicon"></span>{{title}}
+    </div>
+    <div class="modal-body">
+        <div ng-class="{'alert alert-danger': type== 'danger'}" ng-bind-html="message"
+             style="margin-bottom: 0; white-space: normal;">
+        </div>
+    </div>
+    <div class="modal-footer" style="margin-top: 0;">
+        <button ng-click="close(true)" type="button" class="btn btn-primary btn-sm">Yes</button>
+        <button ng-click="close(false)" type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
+    </div>
+</div>

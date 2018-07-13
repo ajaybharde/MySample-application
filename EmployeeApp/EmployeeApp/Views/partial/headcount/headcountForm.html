@@ -1,0 +1,538 @@
+﻿<div class="row"   ng-controller="headcountFormCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+            <div class="panel panel-primary" style="min-height: inherit;">
+                <div class="panel-heading">
+                    <b>
+                        <span class="glyphicon glyphicon-edit space-right"></span>Headcount Form
+                    </b>
+
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12  nopad">
+                            <form name="HeadcountForm" id="headcountContainer" style="display:none" novalidate class="ng-pristine ng-valid ng-valid-required">
+                                <div class="row">
+                                    <table class="table table-responsive  table-bordered well">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:50%">
+                                                    <table class="table table-condensed  table-responsive borderless">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><h4 class="midHeader">Role</h4></td>
+                                                                <td></td>
+                                                            </tr>
+
+                                                            <tr>
+
+                                                                <td>
+                                                                    <label>Local Position Code:  <span class="text-danger"> * </span></label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <ui-select ng-model="dto.SelectedLocalPosition" ng-change="CheckLocalPositionCode()" name="LocalPositionCode" required ng-disabled="dto.makeCompleteFormDisable" theme="selectize">
+                                                                        <ui-select-match placeholder=" Select Local Position Code">
+                                                                            {{$select.selected.LocalPositionCode}}
+                                                                        </ui-select-match>
+                                                                        <ui-select-choices repeat="item in dto.lookups.LocalPositionCol | filter: $select.search">
+                                                                            <span ng-bind-html="item.LocalPositionCode | highlight: $select.search" ng-selected="dto.SelectedLocalPosition"></span>
+                                                                        </ui-select-choices>
+                                                                    </ui-select>
+                                                                    <div class="invalid">
+                                                                        <span class="error" ng-show="HeadcountForm.LocalPositionCode.$error.unique">
+                                                                            Local Position Code already exists.
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>FTE Number :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control input-sm" valid-number ng-disabled="dto.makeCompleteFormDisable" name="vFTE" placeholder="Enter FTE Number" ng-model="dto.Headcount.FTE" />
+                                                                    <span class="error" ng-show="HeadcountForm.vFTE.$dirty && HeadcountForm.vFTE.$invalid">Please Enter Valid Text</span>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Position Name :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <ui-select ng-model="dto.SelectedPosition" ng-disabled="dto.makeCompleteFormDisable" theme="selectize">
+                                                                        <ui-select-match placeholder=" Select Position Name">
+                                                                            {{$select.selected.PositionName}}
+                                                                        </ui-select-match>
+                                                                        <ui-select-choices repeat="item in dto.lookups.PositionCol | filter: $select.search">
+                                                                            <span ng-bind-html="item.PositionName | highlight: $select.search" ng-selected="dto.SelectedPosition"></span>
+                                                                        </ui-select-choices>
+                                                                    </ui-select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+
+                                                                <td>
+                                                                    <label>SAP Position ID :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" ng-disabled="dto.makeCompleteFormDisable" name="SapPositionID" class="form-control input-sm" placeholder="Enter SAP Position ID" ng-model="dto.Headcount.SAP_PositionID" sappositionidchk />
+                                                                    <div class="invalid">
+                                                                        <span class="error" ng-show="HeadcountForm.SapPositionID.$error.unique">
+                                                                            SAP Position ID already exists.
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Shown on SAP Org Chart :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <div style="padding:6px 6px">
+
+                                                                        <input type="radio" name="inlineRadioOptionsOrg" ng-disabled="dto.makeCompleteFormDisable" value="1" ng-model="dto.Headcount.SAP_Org_Chart"><label>&nbsp Yes</label>
+                                                                        <input type="radio" name="inlineRadioOptionsOrg" ng-disabled="dto.makeCompleteFormDisable" value="0" ng-model="dto.Headcount.SAP_Org_Chart"><label>&nbsp No</label>
+
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Organization :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <ui-select ng-model="dto.SelectedOrganization" ng-disabled="dto.makeCompleteFormDisable" theme="selectize">
+                                                                        <ui-select-match placeholder=" Select Organization">
+                                                                            {{$select.selected.OrganizationName}}
+                                                                        </ui-select-match>
+                                                                        <ui-select-choices repeat="item in dto.lookups.OrganizationCol | filter: $select.search">
+                                                                            <span ng-bind-html="item.OrganizationName | highlight: $select.search" ng-selected="dto.SelectedOrganization"></span>
+                                                                        </ui-select-choices>
+                                                                    </ui-select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Line Manager :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <ui-select ng-model="dto.SelectedLineManager" ng-disabled="dto.makeCompleteFormDisable" theme="selectize">
+                                                                        <ui-select-match placeholder=" Select Line Manager">
+                                                                            {{$select.selected.FullName}}
+                                                                        </ui-select-match>
+                                                                        <ui-select-choices repeat="item in dto.lookups.HeadcountUserList | filter: $select.search">
+                                                                            <span ng-bind-html="item.FullName | highlight: $select.search" ng-selected="dto.SelectedLineManager"></span>
+                                                                        </ui-select-choices>
+                                                                    </ui-select>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Line Manager Personnel Number :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" ng-disabled="dto.makeCompleteFormDisable" placeholder="Enter Line Manager Personnel Number" class="form-control input-sm" numeric data-ng-model="dto.Headcount.LineManager_NO" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Location :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <ui-select ng-model="dto.SelectedLocation" ng-disabled="dto.makeCompleteFormDisable" theme="selectize">
+                                                                        <ui-select-match placeholder=" Select Location">
+                                                                            {{$select.selected.LocationName}}
+                                                                        </ui-select-match>
+                                                                        <ui-select-choices repeat="item in dto.lookups.LocationCol | filter: $select.search">
+                                                                            <span ng-bind-html="item.LocationName | highlight: $select.search" ng-selected="dto.SelectedLocation"></span>
+                                                                        </ui-select-choices>
+                                                                    </ui-select>
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td><div class="spacer20"></div></td>
+
+                                                                <td></td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td><h4 class="midHeader">Other</h4></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Phone Ext :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control input-sm" placeholder="Enter Phone Extension" ng-disabled="dto.makeCompleteFormDisable && dto.makeAdminFormDisable" numeric name="vPhoneNumber" ng-model="dto.Headcount.Phone_Extn">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>IT Hardware :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control input-sm" placeholder="Enter IT Hardware" ng-disabled="dto.makeCompleteFormDisable && dto.makeAdminFormDisable" data-ng-model="dto.Headcount.IT_Hardware" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>iPhone :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <div style="padding:6px 6px">
+
+                                                                        <input type="radio" ng-disabled="dto.makeCompleteFormDisable && dto.makeAdminFormDisable" name="inlineRadioOptionsIPhone" value="1" ng-model="dto.Headcount.I_Phone"><label>&nbsp Yes</label>
+                                                                        <input type="radio" ng-disabled="dto.makeCompleteFormDisable && dto.makeAdminFormDisable" name="inlineRadioOptionsIPhone" value="0" ng-model="dto.Headcount.I_Phone"><label>&nbsp No</label>
+
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Eligible for C-Bay :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <div style="padding:6px 6px">
+
+                                                                        <input type="radio" ng-disabled="dto.makeCompleteFormDisable && dto.makeAdminFormDisable" name="inlineRadioOptionsBay" value="1" ng-model="dto.Headcount.C_BAY"><label>&nbsp; Yes</label>
+                                                                        <input type="radio" ng-disabled="dto.makeCompleteFormDisable && dto.makeAdminFormDisable" name="inlineRadioOptionsBay" value="0" ng-model="dto.Headcount.C_BAY"><label>&nbsp; No</label>
+
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Eligible for Permanent Desk :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <div style="padding:6px 6px">
+
+                                                                        <input type="radio" ng-disabled="dto.makeCompleteFormDisable && dto.makeAdminFormDisable" name="inlineRadioOptionsDesk" value="1" ng-model="dto.Headcount.Desk"><label>&nbsp; Yes</label>
+                                                                        <input type="radio" ng-disabled="dto.makeCompleteFormDisable && dto.makeAdminFormDisable" name="inlineRadioOptionsDesk" value="0" ng-model="dto.Headcount.Desk"><label>&nbsp; No</label>
+
+                                                                    </div>
+
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td style="width:50%">
+
+                                                    <table class="table table-condensed table-responsive borderless">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><h4 class="midHeader">User</h4></td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Approved 2152 Form :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <div class="" style="padding:6px 6px">
+                                                                        <button class="btn btn-file btn-success btn-xs "
+                                                                                type="button"
+                                                                                ng-disabled="dto.Approved2152FormName==null || !dto.IsDownloadReady || dto.makeCompleteFormDisable"
+                                                                                title="Download this file"
+                                                                                ng-click="getFile(Approved2152FormId)"
+                                                                                ng-hide="false">
+                                                                            <i class="glyphicon glyphicon-download-alt"></i>
+                                                                        </button>
+                                                                        <button class="btn btn-file btn-danger btn-xs"
+                                                                                type="button"
+                                                                                ng-disabled="dto.Approved2152FormName==null ||dto.makeCompleteFormDisable"
+                                                                                title="Delete this file"
+                                                                                ng-click="deleteFile('Approved2152Form',Approved2152FormId)"
+                                                                                ng-hide="false">
+                                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                                        </button>
+                                                                        <div class="btn btn-file btn-warning btn-xs"
+                                                                             ng-model="files2152"
+                                                                             ng-disabled="dto.Approved2152FormName!=null || dto.makeCompleteFormDisable"
+                                                                             title="Click to upload Approved 2152 form"
+                                                                             ng-file-select ng-file-change="onFileSelect($files,'Approved2152Form')">
+                                                                            <i class="glyphicon glyphicon-arrow-up"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="badge">{{dto.Approved2152FormName}}</span>
+
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Surname :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control input-sm" ng-disabled="dto.makeCompleteFormDisable" name="vSurname" placeholder="Enter Surname" ng-model="dto.Headcount.Surname" />
+                                                                    <span class="error" ng-show="HeadcountForm.vSurname.$dirty && HeadcountForm.vSurname.$invalid">Please Enter Valid Text</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Forename :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control input-sm" ng-disabled="dto.makeCompleteFormDisable" name="vForeName" placeholder="Enter Forename" ng-model="dto.Headcount.Forename" />
+                                                                    <span class="error" ng-show="HeadcountForm.vForeName.$dirty && HeadcountForm.vForeName.$invalid">Please Enter Valid Text</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>User ID :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" ng-disabled="dto.makeCompleteFormDisable" class="form-control input-sm" placeholder="Enter User ID" ng-model="dto.Headcount.UserID" />
+                                                                </td>
+                                                            </tr>
+
+
+
+
+
+
+
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Hiring Company :</label>
+                                                                </td>
+
+                                                                <td>
+
+                                                                    <ui-select ng-model="dto.SelectedHiringCompany" ng-disabled="dto.makeCompleteFormDisable" theme="selectize">
+                                                                        <ui-select-match placeholder=" Select Hiring Company">
+                                                                            {{$select.selected.HiringCompanyName}}
+                                                                        </ui-select-match>
+                                                                        <ui-select-choices repeat="item in dto.lookups.HiringCompanyCol | filter: $select.search">
+                                                                            <span ng-bind-html="item.HiringCompanyName | highlight: $select.search" ng-selected="dto.SelectedHiringCompany"></span>
+                                                                        </ui-select-choices>
+                                                                    </ui-select>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Start Date :</label>
+                                                                </td>
+
+                                                                <td>
+
+
+
+                                                                    <div class="input-group input-group-sm" ng-disabled="dto.makeCompleteFormDisable" ng-mouseleave="openedStartDate=false">
+                                                                        <input type="text" class="form-control input-sm" data-bs-show="openedStartDate" ng-disabled="dto.makeCompleteFormDisable"
+                                                                               placeholder=" Select date.." data-autoclose="1" data-placement="auto" ng-model="dto.Headcount.StartDate" name="date1" bs-datepicker>
+                                                                        <span class="input-group-btn">
+                                                                            <button ng-disabled="dto.makeCompleteFormDisable" class="btn btn-default" ng-click="openedStartDate = ! openedStartDate"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                                        </span>
+                                                                    </div>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+
+                                                                <td>
+                                                                    <label>Expected Finish Date :</label>
+                                                                </td>
+
+                                                                <td>
+
+
+                                                                    <div class=" input-group input-group-sm" ng-disabled="dto.makeCompleteFormDisable" ng-mouseleave="openedExpectedEndDate=false">
+                                                                        <input type="text" class="form-control input-sm" data-bs-show="openedExpectedEndDate" ng-disabled="dto.makeCompleteFormDisable"
+                                                                               placeholder=" Select date.." data-autoclose="1" data-placement="auto" ng-model="dto.Headcount.ExpectedEndDate" name="date2" bs-datepicker>
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" ng-disabled="dto.makeCompleteFormDisable" class="btn btn-default" ng-click="openedExpectedEndDate = ! openedExpectedEndDate"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                                        </span>
+                                                                    </div>
+
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Actual Finish Date :</label>
+                                                                </td>
+
+                                                                <td style="width:50%">
+                                                                    <div class="input-group input-group-sm" ng-disabled="dto.makeCompleteFormDisable" ng-mouseleave="openedActualEndDate=false">
+                                                                        <input type="text" class="form-control input-sm" data-bs-show="openedActualEndDate" ng-disabled="dto.makeCompleteFormDisable"
+                                                                               placeholder=" Select date.." data-autoclose="1" data-placement="auto" ng-model="dto.Headcount.ActualEndDate" name="date3" bs-datepicker>
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" ng-disabled="dto.makeCompleteFormDisable" class="btn btn-default" ng-click="openedActualEndDate = ! openedActualEndDate"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>SAP Personnel Number :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control input-sm" name="SapPersonnelNo" ng-disabled="dto.makeCompleteFormDisable" placeholder="Enter SAP Personnel Number " numeric ng-model="dto.Headcount.Personnel_NO" ng-unique />
+                                                                    <div class="invalid">
+                                                                        <span class="error" ng-show="HeadcountForm.SapPersonnelNo.$error.unique">
+                                                                            SAP Personnel Number already exists.
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Status :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <ui-select ng-model="dto.SelectedStatus" ng-disabled="dto.makeCompleteFormDisable" theme="selectize">
+                                                                        <ui-select-match placeholder=" Select Status">
+                                                                            {{$select.selected.StatusName}}
+                                                                        </ui-select-match>
+                                                                        <ui-select-choices repeat="item in dto.lookups.StatusCol | filter: $select.search">
+                                                                            <span ng-bind-html="item.StatusName | highlight: $select.search" ng-selected="dto.SelectedStatus"></span>
+                                                                        </ui-select-choices>
+                                                                    </ui-select>
+                                                                </td>
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <td><h4 class="midHeader">Security</h4></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Approved Security Pass Form :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <div class="container-fluid" style="padding:6px 6px">
+
+                                                                        <button class="btn btn-file btn-success btn-xs"
+                                                                                type="button"
+                                                                                ng-disabled="dto.ApprovedSecurityPassForm==null || !dto.IsDownloadReady || (dto.makeSecurityFormDisable && dto.makeCompleteFormDisable)"
+                                                                                title="Download this file"
+                                                                                ng-click="getFile(ApprovedSecurityPassFormId)"
+                                                                                ng-hide="false">
+                                                                            <i class="glyphicon glyphicon-download-alt"></i>
+                                                                        </button>
+                                                                        <button class="btn btn-file btn-danger btn-xs"
+                                                                                type="button"
+                                                                                ng-disabled="dto.ApprovedSecurityPassForm==null || (dto.makeSecurityFormDisable &&  dto.makeCompleteFormDisable) "
+                                                                                title="Delete this file"
+                                                                                ng-click="deleteFile('ApprovedSecurityPassForm',ApprovedSecurityPassFormId)"
+                                                                                ng-hide="false">
+                                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                                        </button>
+
+                                                                        <div class="btn btn-file btn-warning btn-xs"
+                                                                             ng-model="files"
+                                                                             ng-disabled="dto.ApprovedSecurityPassForm!=null || (dto.makeSecurityFormDisable && dto.makeCompleteFormDisable)"
+                                                                             title="Click to upload Approved Security Pass form"
+                                                                             ng-file-select ng-file-change="onFileSelect($files,'ApprovedSecurityPassForm')">
+                                                                            <i class="glyphicon glyphicon-arrow-up"></i>
+                                                                        </div>
+
+
+                                                                    </div>
+
+                                                                    <span class="badge">{{dto.ApprovedSecurityPassForm}}</span>
+
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Security Pass :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <ui-select ng-model="dto.SelectedSecurityPass" ng-disabled="dto.FreezeSecurityPass || (dto.makeSecurityFormDisable && dto.makeCompleteFormDisable)" theme="selectize">
+                                                                        <ui-select-match placeholder=" Select Security Pass">
+                                                                            {{$select.selected.SecurityPassName}}
+                                                                        </ui-select-match>
+                                                                        <ui-select-choices repeat="item in dto.lookups.SecurityPassCol | filter: $select.search">
+                                                                            <span ng-bind-html="item.SecurityPassName | highlight: $select.search" ng-selected="dto.SelectedSecurityPass"></span>
+                                                                        </ui-select-choices>
+                                                                    </ui-select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label>Security Pass Approving Manager :</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <ui-select ng-model="dto.SelectedSecuPassApprovingManager" ng-disabled="dto.makeCompleteFormDisable && dto.makeSecurityFormDisable" theme="selectize">
+                                                                        <ui-select-match placeholder=" Select Security Pass Approving Manager">
+                                                                            {{$select.selected.FullName}}
+                                                                        </ui-select-match>
+                                                                        <ui-select-choices repeat="item in dto.lookups.HeadcountUserList | filter: $select.search">
+                                                                            <span ng-bind-html="item.FullName | highlight: $select.search" ng-selected="dto.SelectedSecuPassApprovingManage"></span>
+                                                                        </ui-select-choices>
+                                                                    </ui-select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><div class="spacer35"></div></td>
+
+                                                                <td></td>
+                                                            </tr>
+
+
+
+                                                            <tr>
+                                                                <td style="width:55%"></td>
+                                                                <td>
+                                                                    <div class="pull-right form-inline">
+                                                                        <button type="button" class="btn btn-sm btn-success" ng-hide="dto.makeButtonHide" ng-disabled="HeadcountForm.$invalid" ng-click="saveHeadcountForm()"><i class="glyphicon glyphicon-save space-right"></i>Save</button>
+                                                                        <button type="button" class="btn btn-sm btn-primary" ng-hide="(dto.UserDetails.IsSecurityTeam || dto.makeCompleteFormDisable) || (dto.UserDetails.IsAdmin && !dto.UserDetails.IsFacilitiesAdmin)" ng-disabled="HeadcountForm.$invalid ||dto.Headcount.IsSubmitted || dto.Headcount.IsSecurityEdited" ng-click="submitHeadcountForm()"><i class="glyphicon glyphicon-ok space-right"></i>Submit</button>
+                                                                        <button type="button" class="btn btn-sm btn-default" ng-hide="dto.makeButtonHide" ng-click="clearHeadcountForm()"><i class="glyphicon glyphicon-remove space-right"></i>Clear</button>
+                                                                    </div>
+                                                                </td>
+
+
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

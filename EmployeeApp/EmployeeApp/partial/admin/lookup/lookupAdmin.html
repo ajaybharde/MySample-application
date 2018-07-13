@@ -1,0 +1,153 @@
+﻿<div class="row" ng-controller="LookupAdminCtrl">
+    <div class="col-sm-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="glyphicon glyphicon-search space-right"></i>
+                Lookup Types
+            </div>
+            <div class="panel-body">
+                <!--Filter Lookup Types -->
+                <div class="input-group input-group-sm space-bottom">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-filter"></span></span>
+                    <input type="text" ng-model="typeFilter" ui-keyup="{27 : 'typeFilter=null'}" class="form-control input-sm" style="width: 100%;">
+                </div>
+                <!--List Lookup Types -->
+                <div ng-show="dto.lookupTypes">
+                    <table class="table table-hover table-striped well pointer">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th class="visible-lg">Description</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="t in dto.lookupTypes | filter : typeFilter" ng-click="getLookups(t)" ng-class="{true: 'active'}[dto.lookupType == t]">
+                            <td>{{ t.Name }}</td>
+                            <td class="visible-lg">{{ t.Description }}</td>
+                            <td>
+                                <a href=""><i class="glyphicon glyphicon-arrow-right pull-right"></i></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- Add New Lookup Type -->
+                <div ng-hide="true" class="alert alert-danger">
+                    <b>Note. </b>The option to add/remove lookup types is not currently available.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4" ng-show="dto.lookupType">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="btn btn-primary btn-xs pull-right" ng-show="action == 'Read'" ng-click="createLookup()" style="margin-top: -4px;">
+                    Add New Lookup Value<i class="glyphicon glyphicon-arrow-right space-left"></i>
+                </button>
+                {{dto.lookupType.Name}}
+            </div>
+            <div class="panel-body">
+                <div>
+                    <!--Filter Lookups -->
+                    <div class="input-group input-group-sm space-bottom">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-filter"></span></span>
+                        <input type="text" ng-model="lookupFilter" ui-keyup="{27 : 'lookupFilter=null'}" class="form-control input-sm" style="width: 100%;">
+                    </div>
+                    <!-- List Lookups -->
+                    <table class="table table-hover table-striped pointer well">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th class="visible-lg">Description</th>
+                               <!-- <th class="visible-lg">Start Date</th>
+                                <th class="visible-lg">End Date</th>
+                                <th class="visible-lg">Order</th>-->
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="x in dto.lookups | filter: lookupFilter" ng-click="editLookup(x)" ng-class="{ true: 'active' }[x.Id == selectedLookup.Id]">
+                            <td>{{ x.Name || 'No value supplied' }}</td>
+                            <td class="visible-lg">{{ x.Description }}</td>
+                            <!--<td class="visible-lg">{{ x.StartDate | dateOnlyFormat }}</td>
+                            <td class="visible-lg">{{ x.EndDate | dateOnlyFormat }}</td>
+                            <td class="visible-lg">{{ x.OrderBy }}</td>-->
+                            <td><a href=""><i class="glyphicon glyphicon-arrow-right pull-right"></i></a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4" ng-show="action == 'Edit' || action == 'Create'">
+        <div class="panel panel-primary">
+
+            <div class="panel-heading">{{action}} Lookup Value</div>
+            <div class="panel-body">
+                <form name="MyForm" role="form">
+                    <div class="row space-bottom">
+                        <div class="col-sm-6 nopad-left nopad-right">
+                            <div class="form-group">
+                                <label>Name: <span class="text-danger">*</span></label>
+                                <input name="selectloopname" class="form-control input-sm" ng-model="selectedLookup.Name" required />
+                                <span class="error" ng-show="MyForm.selectloopname.$dirty && MyForm.selectloopname.$invalid">Please Enter Value</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 control-label">
+                            <label class="col-sm-4 control-label">Active:</label>
+                            <div class="checkbox ">
+                                <label class="col-sm-4 control-label">
+                                    <input name="seletActive" type="checkbox" ng-model="selectedLookup.Active">
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row space-bottom">
+                        <div class="col-sm-12 nopad-left nopad-right">
+                            <label>Description: <span class="text-danger">*</span></label>
+                            <input name="selectDesc" class="form-control input-sm" ng-model="selectedLookup.Description" required />
+                            <span class="error" ng-show="MyForm.selectDesc.$dirty && MyForm.selectDesc.$invalid">Please Enter Value</span>
+                        </div>
+                    </div>
+                    <div class="row space-bottom">
+                    </div>
+                </form>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-sm btn-success" ng-disabled="MyForm.$invalid" ng-click="saveLookup(dto.lookupType, newLookupValue)">Save </button>
+                <a class="btn btn-default btn-sm" ng-click="cancelEdit()">Cancel</a>
+            </div>
+
+        </div>
+    </div>
+    <!--<div class="col-sm-4" ng-show="action == 'Edit' || action == 'Create'">
+        <div class="panel panel-primary">
+            <div class="panel-heading">{{action}} Lookup Value</div>
+            <div class="panel-body">
+                <div class="row space-bottom">
+                    <div class="col-sm-6 nopad-left nopad-right">
+                        <label>Name:</label>
+                        <input class="form-control input-sm" ng-model="selectedLookup.Name" />
+                    </div>
+                    <div class="col-sm-4 control-label">
+                        <label class="col-sm-4 control-label">Active:</label>
+                        <div class="checkbox ">
+                            <label class="col-sm-4 control-label">
+                                <input name="seletActive" type="checkbox" ng-model="selectedLookup.Active">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row space-bottom">
+                    <div class="col-sm-12 nopad-left nopad-right">
+                        <label>Description:</label>
+                        <input class="form-control input-sm" ng-model="selectedLookup.Description" />
+                    </div>
+                </div>              
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-sm btn-success" ng-click="saveLookup(dto.lookupType, newLookupValue)">Save </button>
+                <a href="" ng-click="cancelEdit()">Cancel</a>
+            </div>
+        </div>
+    </div>-->
+</div>

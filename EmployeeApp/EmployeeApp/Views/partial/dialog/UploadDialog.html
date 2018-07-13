@@ -1,0 +1,18 @@
+﻿<div class="modal-content" style="width: 100%">
+    <div class="modal-header">
+        <span class="glyphicon glyphicon-upload space-right"></span> File Upload
+    </div>
+    <div class="modal-body">
+
+        <div class="row">
+            <div file-upload action='api/file/upload' document-version-id='{{model.HeadcountId}}' upload-type-id='{{model.selectedUploadType}}' on-upload="refreshFiles(false)" result="result"></div>
+        </div>
+        <!--<div class="row ">
+            <a href="" class="btn btn-sm btn-default" data-dismiss="modal" ng-click="refreshFiles(true)">Close</a>
+            <a href="" ng-hide="true" class="btn btn-primary" ng-click="saveThis()">Save changes</a>
+        </div>-->
+        <div class="row ">
+            <button ng-click="close()" type="button" class="btn btn-sm btn-default pull-right" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>

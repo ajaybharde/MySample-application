@@ -1,0 +1,303 @@
+/* ConocoPhillips App Header */
+.conocoHeader {
+    min-height: 25px;
+    padding: 5px;
+    padding-bottom: 0;
+    background-color: #222222;
+    color: #D9D9D9;
+}
+
+    .conocoHeader a, .conocoHeader a:hover, .conocoHeader a:visited {
+        text-decoration: underline;
+        color: #D9D9D9;
+    }
+
+.appHeader {
+    min-height: 60px;
+    padding: 4px;
+    background-color: #428bca;
+}
+/* END - ConocoPhillips App Header */
+
+.user-info {
+    font-size: small;
+    margin: 0;
+    margin-top: 10px;
+    padding: 6px;
+}
+
+
+
+body, html {
+    font: 12px Arial,Helvetica,sans-serif;
+    background-color: #F9F7ED;
+    height: 100%;
+}
+
+/* Modify Modals styles */
+.modal-header {
+    background-color: #428bca;
+    color: #F9F7ED;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+}
+/* END - Modal Styles */
+
+/* icon spacing */
+.space-top {
+    margin-top: 0.3em;
+}
+
+.space-bottom {
+    margin-bottom: 0.8em;
+}
+
+.space-right {
+    margin-right: 0.4em;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.space-right-small {
+    margin-right: 0.2em;
+}
+
+.space-left {
+    margin-left: 0.4em;
+}
+/* END - icon spacing */
+
+/* Sticky footer */
+.footer {
+    padding: 15px;
+    height: 45px;
+    margin: 0;
+}
+
+    .footer a {
+        color: #999;
+    }
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -45px;
+}
+
+.push {
+    height: 45px;
+}
+/* END - Sticky footer*/
+
+.scrollable {
+    display: block;
+    overflow-y: auto;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+/* END - Custom scrollbar */
+
+/* html5 */
+article, aside, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+/* END - html5 */
+
+.label-inverse {
+    background-color: #333333;
+}
+
+.dropdown-menu.right {
+    left: auto;
+    right: -5px;
+}
+
+.dropdown.right {
+    left: auto;
+    right: -5px;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+/* select2 overrides */
+.select2-container .select2-choice {
+    height: 30px;
+    line-height: 30px;
+}
+/* END - select2 overrides */
+
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th {
+    background-color: #F5F5E8;
+}
+
+.table-pointer > tbody > tr:hover > td,
+.table-pointer > tbody > tr:hover > th {
+    cursor: pointer;
+}
+
+.active > td {
+    background-color: #CFE2F2 !important;
+}
+
+.nopad {
+    padding: 0;
+}
+
+.nopad-left {
+    padding-left: 0;
+}
+
+.nopad-right {
+    padding-right: 0;
+}
+
+.navbar-default .navbar-nav > .active > a {
+    background-color: #e7e7e7;
+}
+
+/*  */
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle,
+.navbar, .navbar-inverse .navbar-inner {
+    filter: none;
+}
+
+.height-short {
+    height: 300px;
+}
+
+.height-tall {
+    height: 600px;
+}
+
+.panel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #F2F2F2;
+    z-index: 9999;
+    color: white;
+    margin: 36px 16px 21px 16px;
+    border-radius: 0 0 4px 4px;
+}
+
+.row-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #FFFFFF;
+    opacity: 0.8;
+    z-index: 9999;
+    color: white;
+}
+
+.col-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #F2F2F2;
+    opacity: 0.4;
+    z-index: 9999;
+    color: white;
+}
+
+/*  */
+.table-condensed-more thead > tr > th,
+.table-condensed-more tbody > tr > th,
+.table-condensed-more tfoot > tr > th,
+.table-condensed-more thead > tr > td,
+.table-condensed-more tbody > tr > td,
+.table-condensed-more tfoot > tr > td {
+    padding: 4px;
+    vertical-align: middle;
+}
+
+label {
+    margin-bottom: 0;
+    color: #595959;
+}
+/*  */
+
+
+.alternate-row > td {
+    background-color: #f9f9f9;
+}
+
+
+.angular-center-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: table;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.angular-centered {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+.ngCellText {
+    white-space: normal;
+}
+
+.text-big {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+    font-size: 2em;
+    line-height: 1.2;
+}
+
+.text-medium {
+    margin-top: 0.1em;
+    font-size: 1.3em;
+}
+
+.input-group.select2-prepend [class^="select2-choice"] {
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+}
+
+.input-group.select2-append [class^="select2-choice"] {
+    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+a:focus {
+    outline: none;
+}
+
+.ngRow.selected {
+    background-color: #d9edf7;
+}

@@ -1,0 +1,89 @@
+﻿<div ng-controller="DemoCtrl">
+
+    <div class="row">
+        <script type="text/ng-template" id="demoFormTemplate.html">
+            <modal-dialog>
+                <p>Modal Content Goes here</p>
+                {{model.Property1}}
+            </modal-dialog>
+        </script>
+        <div class="col-sm-12">
+
+            <accordion>
+                <accordion-group is-open="accordionGroup1">
+                    <accordion-heading>
+                        Panel Heading<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionGroup1, 'glyphicon-chevron-right': !accordionGroup1}"></i>
+                    </accordion-heading>
+                    Panels are where the majority of page content will be contained
+                </accordion-group>
+                <accordion-group is-open="accordionGroup2">
+                    <accordion-heading>
+                        Dialogs <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionGroup2, 'glyphicon-chevron-right': !accordionGroup2}"></i>
+                    </accordion-heading>
+                    <div class="row">
+                        <button class="btn btn-sm btn-primary" ng-click="showConfirmation()">Show Confirmation</button>
+                        <button class="btn btn-sm btn-primary" ng-click="showAlert()">Show Alert</button>
+                        <button class="btn btn-sm btn-primary" ng-click="showComment()">Show Comments</button>
+                        <button class="btn btn-sm btn-primary" ng-click="showFormDialog()">Show Dialog</button>
+                    </div>
+                </accordion-group>
+                <accordion-group is-open="accordionGroup3">
+                    <accordion-heading>
+                        Active Directory Lookup <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionGroup3, 'glyphicon-chevron-right': !accordionGroup3}"></i>
+                    </accordion-heading>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <span ad-picker on-user-select="addUser('add',user)" style="width: 100%;"></span>
+                            <div class="col-sm-12 nopad" style="overflow: auto; max-height: inherit;">
+                                <div class="input-sm" ng-repeat="user in dto.Users | orderBy:'Surname'" style="display: inline-block; border: 1px solid #bce8f1; margin-right: 5px; margin-bottom: 5px; color: #3a87ad; background-color: #d9edf7;">{{user.DisplayName}} <i class="glyphicon glyphicon-remove pointer" ng-click="addUser('delete',user)" title="Remove user"></i></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <span ad-picker style="width: 100%;"></span>
+                        </div>
+                    </div>
+                </accordion-group>
+                <accordion-group is-open="accordionGroup4">
+                    <accordion-heading>
+                        Datepicker <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionGroup4, 'glyphicon-chevron-right': !accordionGroup4}"></i>
+                    </accordion-heading>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <input type="text" datepicker-popup="dd MMM yyyy" datepicker-append-to-body="true" class="form-control input-sm" min="minDate" ng-model="selectedDate" />
+                                </div>
+                                <div class="col-sm-6">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </accordion-group>
+                <accordion-group is-open="accordionGroup5">
+                    <accordion-heading>
+                        Email <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionGroup5, 'glyphicon-chevron-right': !accordionGroup5}"></i>
+                    </accordion-heading>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-sm btn-primary" ng-click="sendEmail()">Send myself an email</button>
+                        </div>
+                    </div>
+                </accordion-group>
+                <accordion-group is-open="accordionGroup6">
+                    <accordion-heading>
+                        Kendo UI <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordionGroup6, 'glyphicon-chevron-right': !accordionGroup6}"></i>
+                    </accordion-heading>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <pre class="space-bottom">{{date1}}</pre>
+                            <input kendo-date-picker k-format="'dd MMM yyyy'" k-options="datePickerOptions" k-ng-model="date1" k-options="datePickerOptions" />
+                        </div>
+                        <div class="col-sm-9">
+                            <kendo-grid options="mainGridOptions"></kendo-grid>
+                        </div>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+</div>

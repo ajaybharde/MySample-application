@@ -1,0 +1,114 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <!-- Vendor installed stylesheets -->
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/kendo/2018.2.620/kendo.black.min.css" rel="stylesheet" />
+    <link href="~/Content/css/select2.css" rel="stylesheet" />
+
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+
+
+    <link href="~/Content/angular-block-ui.css" rel="stylesheet" />
+
+
+    <!--ng-Grid Style -->
+    <!-- COP and App Specific Styles -->
+    <link href="~/Content/css/app.css" rel="stylesheet" />
+    <link href="~/Content/css/cop.css" rel="stylesheet" />
+    <link href="~/Content/css/HeadcountStyle.css" rel="stylesheet" />
+    <link href="~/Content/css/print.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <title>Employee</title>
+
+</head>
+
+<body id="ng-app" data-ng-app="app" class="ng-cloak" ng-cloak>
+    <div ng-show="busy" class="ui-widget-overlay" style="z-index: 1001;"></div>
+
+    <div class="wrapper" ng-controller="SetupCtrl">
+        <div ng-include="'Views/partial/templates/header.tpl.html'"></div>
+        <div ng-include="'Views/partial/templates/nav.tpl.html'"></div>
+        <div>
+            <div ng-view class="view-animate"></div>
+            @RenderBody()
+        </div>
+        <div class="push"></div>
+    </div>
+    <div ng-include="'Views/partial/templates/footer.tpl.html'"></div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+   
+  
+   
+  
+
+    <script src="scripts/angular.js"></script>
+    <script src="scripts/angular-animate.js"></script>
+    <script src="scripts/angular-route.js"></script>
+    <script src="scripts/angular-sanitize.js"></script>
+    <script src="scripts/bootstrap.js"></script>
+    <script src="scripts/toastr.js"></script>
+    <script src="scripts/moment.js"></script>
+    <script src="scripts/ui-bootstrap-tpls-0.10.0.js"></script>
+    <script src="scripts/spin.js"></script>
+
+    <!-- New Select2 -->
+    <script src="~/Scripts/select2.js"></script>
+    <script src="~/Scripts/select.js"></script>
+    <script src="~/Scripts/ui-bootstrap-tpls-0.10.0.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+
+
+    <!-- Main App JS -->
+
+    <script src="~/app/setup.js"></script>
+    <script src="~/app/constants.js"></script>
+    <!-- Service JS -->
+    <script src="service/cop.services.js"></script>
+    <script src="service/httpHelpers.js"></script>
+    <script src="service/helpservice.js"></script>
+    <script src="service/reportsservice.js"></script>
+    <script src="service/admin/useradminservice.js"></script>
+    <script src="service/headcount/headcountservice.js"></script>
+    <script src="service/ReportService/ReportService.js"></script>
+    <script src="service/Search/SearchService.js"></script>
+    <script src="service/PendingRequest/PendingRequestService.js"></script>
+
+    <!-- Directives JS -->
+    <script src="directive/cop.directives.js"></script>
+    <script src="directive/adPicker/adPicker.js"></script>
+
+    <script src="directive/attachment/attachment.js"></script>
+    <script src="directive/fileUpload/fileUpload.js"></script>
+
+    <!-- Filters -->
+    <script src="filter/cop.filters.js"></script>
+
+    <!-- Controllers JS -->
+    <script src="partial/admin/config/config.js"></script>
+    <script src="partial/admin/reports/reportsAdminCtrl.js"></script>
+    <script src="partial/admin/lookup/lookupAdmin.js"></script>
+    <script src="partial/admin/user/userAdmin.js"></script>
+    <script src="partial/admin/help/helpAdmin.js"></script>
+    <script src="partial/about/about.js"></script>
+    <script src="partial/reports/reports.js"></script>
+    <script src="partial/headcount/headcountForm.js"></script>
+    <script src="partial/search/searchCtrl.js"></script>
+    <script src="partial/start/startCtrl.js"></script>
+    <script src="partial/pendingRequest/pendingRequestCtrl.js"></script>
+    <script src="partial/reports/reports.js"></script>
+</body>
+</html>

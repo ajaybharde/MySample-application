@@ -1,0 +1,56 @@
+﻿<div class="row" ng-controller="startCtrl">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="jumbotron " style="text-align: center;">
+                    <h2>Welcome To Headcount Tracker Application</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div ng-hide="dto.IsNoAccess" class="panel panel-primary">
+
+                    <div class=" panel-heading">
+                        Get Access To Headcount Tracker
+                    </div>
+                    <div class="panel-body ">
+                        <div class="row">
+                            <p class="bg-danger text-center"> <h5> You do not currently have access to the UK Headcount Database, please contact one of the system administrators below.</h5></p>
+
+                            <div class="col-sm-6 nopad ">
+                                <div class="">
+                                    <table tr-ng-grid=""
+                                           items="dto.AuthUsers"
+                                           class="table table-no-border table-condensed-more"
+                                           selection-mode="None"
+                                           enable-filtering=" dto.coloumnsearch">
+                                        <thead>
+                                            <tr>
+                                                <th field-name="Email" enable-sorting="false" style="display:none" display-name=" "></th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td field-name="Email">
+                                                    <a ng-href="mailto:{{gridItem.Email}}"><i class="glyphicon glyphicon-envelope space-right"></i>{{gridItem.DisplayName}}</a>
+                                                </td>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td>
+                                                    <span class="pull-right form-group" style="display:none" tr-ng-grid-pager=""></span>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
